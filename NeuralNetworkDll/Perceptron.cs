@@ -1,4 +1,6 @@
-﻿namespace NeuralNetworkDll
+﻿using System;
+
+namespace NeuralNetworkDll
 {
     internal class Perceptron
     {
@@ -21,6 +23,12 @@
         /// <returns>Результат</returns>
         public bool Activate(int[] values)
         {
+            // Проверяем, совпадают ли длинна массива данных и длинна массива весов
+            if (values.Length != this._weights.Length)
+            {
+                throw new ArgumentException("Размер данных и размер весов не совпадают!");
+            }
+
             double sum = 0;
             // Считаем сумму
             for (int i = 0; i < values.Length; i++)
