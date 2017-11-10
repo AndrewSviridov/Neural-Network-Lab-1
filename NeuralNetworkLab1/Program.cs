@@ -29,14 +29,14 @@ namespace NeuralNetworkLab1
             int[] val2 =
             {
                 1, 0,
-                1, 1
+                1, 0
             };
 
             bool val2Result = false;
 
             int[] val3 =
             {
-                0, 1,
+                1, 1,
                 1, 0
             };
 
@@ -48,12 +48,13 @@ namespace NeuralNetworkLab1
             #endregion
 
             // Обучаем
-            nn.Train(values, expected);
+            nn.Train(values, expected, false);
 
+            // Тестируем
             int[] test =
             {
-                1, 1,
-                1, 1
+                1, 0,
+                0, 1
             };
 
             bool result = nn.Test(test);

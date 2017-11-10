@@ -58,5 +58,8 @@ namespace NeuralNetworkDll
                 }
             }
         }
+
+        public double GetDelta() => this._delta;
+
     }
 }

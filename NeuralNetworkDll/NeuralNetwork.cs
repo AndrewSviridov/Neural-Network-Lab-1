@@ -22,13 +22,18 @@ namespace NeuralNetworkDll
         /// </summary>
         /// <param name="values">Данные</param>
         /// <param name="expected">Ожидаемые значения</param>
-        public void Train(int[][] values, bool[] expected)
+        /// <param name="breakCycle">Проверяем на бесконечный цикл</param>
+        public void Train(int[][] values, bool[] expected, bool breakCycle = true)
         {
+            // Предыдущая дельта
+            double prevDelta = 0;
             // Вечный цикл
             while (true)
             {
                 // Флаг проверки на ошибку
                 bool error = false;
+                // Текущая дельта
+                double delta = 0;
 
                 // Проходим по всем данным
                 for (int i = 0; i < values.Length; i++)
@@ -42,6 +47,7 @@ namespace NeuralNetworkDll
                         error = true;
                         // Тренируем персептрон
                         this._perceptron.Train(values[i]);
+                        delta += this._perceptron.GetDelta();
                     }
                 }
 
@@ -50,6 +56,20 @@ namespace NeuralNetworkDll
                 {
                     // Выходим из цикла
                     break;
+                }
+
+                // Проверка на вечный цикл
+                if (breakCycle)
+                {
+                    // Находим среднюю дельту
+                    delta /= values.Length;
+                    // Если изменение дельты меньше порога
+                    if (Math.Abs(delta - prevDelta) <= 0.001)
+                    {
+                        // Выходим из цикла
+                        break;
+                    }
+                    prevDelta = delta;
                 }
             }
         }
