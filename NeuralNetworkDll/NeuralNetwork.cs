@@ -12,9 +12,10 @@ namespace NeuralNetworkDll
 
         /// <param name="weights">Первоначальные веса</param>
         /// <param name="threshold">Пороговое значение</param>
-        public NeuralNetwork(double[] weights, double threshold)
+        /// <param name="learningSpeed">Скорость обучения</param>
+        public NeuralNetwork(double[] weights, double threshold, double learningSpeed = 1)
         {
-            this._perceptron = new Perceptron(weights, threshold);
+            this._perceptron = new Perceptron(weights, threshold, learningSpeed);
         }
 
         /// <summary>

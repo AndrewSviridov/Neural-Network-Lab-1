@@ -54,7 +54,7 @@ namespace NeuralNetworkLab1
             int[] test =
             {
                 1, 0,
-                0, 1
+                0, 0
             };
 
             bool result = nn.Test(test);
