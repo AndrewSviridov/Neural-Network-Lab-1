@@ -16,7 +16,7 @@ namespace NeuralNetworkDll
         {
             this._weights = weights;
             this._threshold = threshold;
-            _learningSpeed = learningSpeed;
+            this._learningSpeed = learningSpeed;
         }
 
         /// <summary>
