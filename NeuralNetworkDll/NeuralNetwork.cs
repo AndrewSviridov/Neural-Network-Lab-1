@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace NeuralNetworkDll
@@ -24,12 +25,13 @@ namespace NeuralNetworkDll
         /// <param name="values">Данные</param>
         /// <param name="expected">Ожидаемые значения</param>
         /// <param name="breakCycle">Проверяем на бесконечный цикл</param>
-        public void Train(int[][] values, bool[] expected, bool breakCycle = true)
+        /// <param name="token">Токен на отмену</param>
+        public void Train(int[][] values, bool[] expected, bool breakCycle = true, CancellationToken token = default(CancellationToken))
         {
             // Предыдущая дельта
             double prevDelta = 0;
             // Вечный цикл
-            while (true)
+            while (!token.IsCancellationRequested)
             {
                 // Флаг проверки на ошибку
                 bool error = false;
