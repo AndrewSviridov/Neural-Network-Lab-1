@@ -7,18 +7,18 @@
         mc:Ignorable="d"
         Title="Персептрон" Height="525" Width="525">
     <Grid>
-        <TabControl x:Name="tabControl">
+        <TabControl x:Name="MainTabcontrol">
             <TabItem Header="Обучение">
                 <Grid Background="#FFE5E5E5">
-                    <ListBox x:Name="listBox" HorizontalAlignment="Left" Height="315" Margin="10,10,0,0" VerticalAlignment="Top" Width="100" SelectedIndex="0">
+                    <ListBox HorizontalAlignment="Left" Height="315" Margin="10,10,0,0" VerticalAlignment="Top" Width="100" SelectedIndex="0" SelectionChanged="ListBox_SelectionChanged">
                         <ListBoxItem>
-                            <Label x:Name="label1" Content="Модель 1" Width="80"/>
+                            <Label Content="Модель 1" Width="80"/>
                         </ListBoxItem>
                         <ListBoxItem>
-                            <Label x:Name="label2" Content="Модель 2" Width="80"/>
+                            <Label Content="Модель 2" Width="80"/>
                         </ListBoxItem>
                         <ListBoxItem>
-                            <Label x:Name="label3" Content="Модель 3" Width="80"/>
+                            <Label Content="Модель 3" Width="80"/>
                         </ListBoxItem>
                     </ListBox>
                     <Grid Margin="160,60,0,0" ShowGridLines="False" HorizontalAlignment="Left" Width="190" Height="315" VerticalAlignment="Top">
@@ -39,25 +39,25 @@
                                 <Setter Property="Margin" Value="5"/>
                             </Style>
                         </Grid.Resources>
-                        <Rectangle Fill="Black" HorizontalAlignment="Center" Stroke="Black" VerticalAlignment="Center" Grid.Row="0" Grid.Column="0" Width="50" Height="50"/>
-                        <Rectangle Fill="Black" HorizontalAlignment="Center" Stroke="Black" VerticalAlignment="Center" Grid.Row="0" Grid.Column="1" Width="50" Height="50"/>
-                        <Rectangle Fill="Black" HorizontalAlignment="Center" Stroke="Black" VerticalAlignment="Center" Grid.Row="0" Grid.Column="2" Width="50" Height="50"/>
-                        <Rectangle Fill="Black" HorizontalAlignment="Center" Stroke="Black" VerticalAlignment="Center" Grid.Row="1" Grid.Column="0" Width="50" Height="50"/>
-                        <Rectangle Fill="White" HorizontalAlignment="Center" Stroke="Black" VerticalAlignment="Center" Grid.Row="1" Grid.Column="1" Width="50" Height="50"/>
-                        <Rectangle Fill="White" HorizontalAlignment="Center" Stroke="Black" VerticalAlignment="Center" Grid.Row="1" Grid.Column="2" Width="50" Height="50"/>
-                        <Rectangle Fill="Black" HorizontalAlignment="Center" Stroke="Black" VerticalAlignment="Center" Grid.Row="2" Grid.Column="0" Width="50" Height="50"/>
-                        <Rectangle Fill="Black" HorizontalAlignment="Center" Stroke="Black" VerticalAlignment="Center" Grid.Row="2" Grid.Column="1" Width="50" Height="50"/>
-                        <Rectangle Fill="Black" HorizontalAlignment="Center" Stroke="Black" VerticalAlignment="Center" Grid.Row="2" Grid.Column="2" Width="50" Height="50"/>
-                        <Rectangle Fill="White" HorizontalAlignment="Center" Stroke="Black" VerticalAlignment="Center" Grid.Row="3" Grid.Column="0" Width="50" Height="50"/>
-                        <Rectangle Fill="White" HorizontalAlignment="Center" Stroke="Black" VerticalAlignment="Center" Grid.Row="3" Grid.Column="1" Width="50" Height="50"/>
-                        <Rectangle Fill="Black" HorizontalAlignment="Center" Stroke="Black" VerticalAlignment="Center" Grid.Row="3" Grid.Column="2" Width="50" Height="50"/>
-                        <Rectangle Fill="Black" HorizontalAlignment="Center" Stroke="Black" VerticalAlignment="Center" Grid.Row="4" Grid.Column="0" Width="50" Height="50"/>
-                        <Rectangle Fill="Black" HorizontalAlignment="Center" Stroke="Black" VerticalAlignment="Center" Grid.Row="4" Grid.Column="1" Width="50" Height="50"/>
-                        <Rectangle Fill="Black" HorizontalAlignment="Center" Stroke="Black" VerticalAlignment="Center" Grid.Row="4" Grid.Column="2" Width="50" Height="50"/>
+                        <Rectangle Fill="{Binding LearningCurrentRectangleCollors[0]}" HorizontalAlignment="Center" Stroke="Black" VerticalAlignment="Center" Grid.Row="0" Grid.Column="0" Width="50" Height="50" MouseLeftButtonDown="RectangleMouseClick" Tag="0"/>
+                        <Rectangle Fill="{Binding LearningCurrentRectangleCollors[1]}" HorizontalAlignment="Center" Stroke="Black" VerticalAlignment="Center" Grid.Row="0" Grid.Column="1" Width="50" Height="50" MouseLeftButtonDown="RectangleMouseClick" Tag="1"/>
+                        <Rectangle Fill="{Binding LearningCurrentRectangleCollors[2]}" HorizontalAlignment="Center" Stroke="Black" VerticalAlignment="Center" Grid.Row="0" Grid.Column="2" Width="50" Height="50" MouseLeftButtonDown="RectangleMouseClick" Tag="2"/>
+                        <Rectangle Fill="{Binding LearningCurrentRectangleCollors[3]}" HorizontalAlignment="Center" Stroke="Black" VerticalAlignment="Center" Grid.Row="1" Grid.Column="0" Width="50" Height="50" MouseLeftButtonDown="RectangleMouseClick" Tag="3"/>
+                        <Rectangle Fill="{Binding LearningCurrentRectangleCollors[4]}" HorizontalAlignment="Center" Stroke="Black" VerticalAlignment="Center" Grid.Row="1" Grid.Column="1" Width="50" Height="50" MouseLeftButtonDown="RectangleMouseClick" Tag="4"/>
+                        <Rectangle Fill="{Binding LearningCurrentRectangleCollors[5]}" HorizontalAlignment="Center" Stroke="Black" VerticalAlignment="Center" Grid.Row="1" Grid.Column="2" Width="50" Height="50" MouseLeftButtonDown="RectangleMouseClick" Tag="5"/>
+                        <Rectangle Fill="{Binding LearningCurrentRectangleCollors[6]}" HorizontalAlignment="Center" Stroke="Black" VerticalAlignment="Center" Grid.Row="2" Grid.Column="0" Width="50" Height="50" MouseLeftButtonDown="RectangleMouseClick" Tag="6"/>
+                        <Rectangle Fill="{Binding LearningCurrentRectangleCollors[7]}" HorizontalAlignment="Center" Stroke="Black" VerticalAlignment="Center" Grid.Row="2" Grid.Column="1" Width="50" Height="50" MouseLeftButtonDown="RectangleMouseClick" Tag="7"/>
+                        <Rectangle Fill="{Binding LearningCurrentRectangleCollors[8]}" HorizontalAlignment="Center" Stroke="Black" VerticalAlignment="Center" Grid.Row="2" Grid.Column="2" Width="50" Height="50" MouseLeftButtonDown="RectangleMouseClick" Tag="8"/>
+                        <Rectangle Fill="{Binding LearningCurrentRectangleCollors[9]}" HorizontalAlignment="Center" Stroke="Black" VerticalAlignment="Center" Grid.Row="3" Grid.Column="0" Width="50" Height="50" MouseLeftButtonDown="RectangleMouseClick" Tag="9"/>
+                        <Rectangle Fill="{Binding LearningCurrentRectangleCollors[10]}" HorizontalAlignment="Center" Stroke="Black" VerticalAlignment="Center" Grid.Row="3" Grid.Column="1" Width="50" Height="50" MouseLeftButtonDown="RectangleMouseClick" Tag="10"/>
+                        <Rectangle Fill="{Binding LearningCurrentRectangleCollors[11]}" HorizontalAlignment="Center" Stroke="Black" VerticalAlignment="Center" Grid.Row="3" Grid.Column="2" Width="50" Height="50" MouseLeftButtonDown="RectangleMouseClick" Tag="11"/>
+                        <Rectangle Fill="{Binding LearningCurrentRectangleCollors[12]}" HorizontalAlignment="Center" Stroke="Black" VerticalAlignment="Center" Grid.Row="4" Grid.Column="0" Width="50" Height="50" MouseLeftButtonDown="RectangleMouseClick" Tag="12"/>
+                        <Rectangle Fill="{Binding LearningCurrentRectangleCollors[13]}" HorizontalAlignment="Center" Stroke="Black" VerticalAlignment="Center" Grid.Row="4" Grid.Column="1" Width="50" Height="50" MouseLeftButtonDown="RectangleMouseClick" Tag="13"/>
+                        <Rectangle Fill="{Binding LearningCurrentRectangleCollors[14]}" HorizontalAlignment="Center" Stroke="Black" VerticalAlignment="Center" Grid.Row="4" Grid.Column="2" Width="50" Height="50" MouseLeftButtonDown="RectangleMouseClick" Tag="14"/>
                     </Grid>
-                    <Button x:Name="button" Content="Добавить" HorizontalAlignment="Left" Margin="10,330,0,0" VerticalAlignment="Top" Width="100" Height="20"/>
-                    <Button x:Name="button_Copy" Content="Удалить" HorizontalAlignment="Left" Margin="10,355,0,0" VerticalAlignment="Top" Width="100" Height="20"/>
-                    <TextBox x:Name="textBox" HorizontalAlignment="Left" Height="23" Margin="160,32,0,0" TextWrapping="Wrap" Text="Модель 1" VerticalAlignment="Top" Width="190"/>
+                    <Button Content="Добавить" HorizontalAlignment="Left" Margin="10,330,0,0" VerticalAlignment="Top" Width="100" Height="20"/>
+                    <Button Content="Удалить" HorizontalAlignment="Left" Margin="10,355,0,0" VerticalAlignment="Top" Width="100" Height="20"/>
+                    <TextBox x:Name="TeachingTextboxModelName" HorizontalAlignment="Left" Height="23" Margin="160,32,0,0" TextWrapping="Wrap" Text="Модель 1" VerticalAlignment="Top" Width="190"/>
                 </Grid>
             </TabItem>
             <TabItem Header="Тестирование">
