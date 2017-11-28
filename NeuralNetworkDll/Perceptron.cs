@@ -62,6 +62,10 @@ namespace NeuralNetworkDll
             }
         }
 
+        /// <summary>
+        /// Дельта
+        /// </summary>
+        /// <returns>Дельта</returns>
         public double GetDelta() => this._delta;
     }
 }
