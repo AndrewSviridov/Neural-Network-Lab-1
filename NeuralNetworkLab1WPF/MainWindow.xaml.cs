@@ -10,11 +10,13 @@ namespace NeuralNetworkLab1WPF
         /// <summary>
         /// Панель обучения
         /// </summary>
-        public LearningPanelData LearnPanel { get; } = new LearningPanelData();
+        public LearningPanelData LearnPanel { get; }
         public MainWindow()
         {
+            this.LearnPanel = new LearningPanelData(this);
             InitializeComponent();
             this.DataContext = this;
+            this.LearnPanel.Initialize();
         }
     }
 }

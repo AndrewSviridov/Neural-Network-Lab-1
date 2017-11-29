@@ -10,7 +10,7 @@
         <TabControl x:Name="MainTabcontrol">
             <TabItem Header="Обучение">
                 <Grid Background="#FFE5E5E5">
-                    <ListBox HorizontalAlignment="Left" Height="315" Margin="10,10,0,0" VerticalAlignment="Top" Width="100" SelectedIndex="0" SelectionChanged="LearnListBoxSelectionChanged">
+                    <ListBox x:Name="LearningListBox" HorizontalAlignment="Left" Height="315" Margin="10,10,0,0" VerticalAlignment="Top" Width="100" SelectionChanged="LearnListBoxSelectionChanged">
                         <ListBoxItem>
                             <Label Content="Модель 1" Width="80"/>
                         </ListBoxItem>
@@ -55,8 +55,8 @@
                         <Rectangle Fill="{Binding LearnPanel.CurrentModel.Colors[13]}" HorizontalAlignment="Center" Stroke="Black" VerticalAlignment="Center" Grid.Row="4" Grid.Column="1" Width="50" Height="50" MouseLeftButtonDown="LearnRectangleMouseClick" Tag="13"/>
                         <Rectangle Fill="{Binding LearnPanel.CurrentModel.Colors[14]}" HorizontalAlignment="Center" Stroke="Black" VerticalAlignment="Center" Grid.Row="4" Grid.Column="2" Width="50" Height="50" MouseLeftButtonDown="LearnRectangleMouseClick" Tag="14"/>
                     </Grid>
-                    <Button Content="Добавить" HorizontalAlignment="Left" Margin="10,330,0,0" VerticalAlignment="Top" Width="100" Height="20"/>
-                    <Button Content="Удалить" HorizontalAlignment="Left" Margin="10,355,0,0" VerticalAlignment="Top" Width="100" Height="20"/>
+                    <Button Content="Добавить" HorizontalAlignment="Left" Margin="10,330,0,0" VerticalAlignment="Top" Width="100" Height="20" Click="AddLearningModelButtonClick"/>
+                    <Button Content="Удалить" HorizontalAlignment="Left" Margin="10,355,0,0" VerticalAlignment="Top" Width="100" Height="20" Click="RemoveLearningModelButtonClick"/>
                     <TextBox HorizontalAlignment="Left" Height="23" Margin="160,32,0,0" TextWrapping="Wrap" Text="{Binding LearnPanel.CurrentModelName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Width="190" KeyDown="LearnTextBoxKeyDown"/>
                 </Grid>
             </TabItem>

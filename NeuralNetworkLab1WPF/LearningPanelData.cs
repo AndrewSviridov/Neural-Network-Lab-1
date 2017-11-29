@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel;
+using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Shapes;
@@ -9,6 +11,7 @@ namespace NeuralNetworkLab1WPF
 {
     public sealed class LearningPanelData : INotifyPropertyChanged
     {
+        private readonly MainWindow _mainWindow;
         private Model _currentModel;
         public Model CurrentModel
         {
@@ -31,50 +34,76 @@ namespace NeuralNetworkLab1WPF
             }
         }
 
-        private readonly Dictionary<string, Model> _learningModels =
-            new Dictionary<string, Model>();       
+        private readonly Dictionary<ListBoxItem, Model> _learningModels =
+            new Dictionary<ListBoxItem, Model>();       
 
         /// <summary>
         /// Конструктор
         /// </summary>
-        public LearningPanelData()
+        public LearningPanelData(MainWindow parent)
         {
-            this.InitializeLearningData();
+            this._mainWindow = parent;
         }
 
-        public void ChangeModel(string model)
+        public void ChangeModel(ListBoxItem lbi)
         {
-            this.CurrentModel = this.GetOrAddModelToDictionary(model);
+            this.CurrentModel = this.GetOrAddModelToDictionary(lbi);
             this.CurrentModelName = this.CurrentModel.Name;
         }
 
-        public bool ContainsModel(string name)
+        public void Initialize()
         {
-            return this._learningModels.ContainsKey(name);
+            this._mainWindow.LearningListBox.Items.Clear();
+            this.AddModel("Модель 1");
+            this.AddModel("Модель 2");
+            this.AddModel("Модель 3");
+            this._mainWindow.LearningListBox.SelectedIndex = 0;
         }
 
-        private void InitializeLearningData()
+        public ListBoxItem AddModel(string name)
         {
-            this.CurrentModel = this.GetOrAddModelToDictionary("Модель 1");
-            this.GetOrAddModelToDictionary("Модель 2");
-            this.GetOrAddModelToDictionary("Модель 3");
+            var label = new Label
+            {
+                Width = 80,
+                Content = name
+            };
+            var lbi = new ListBoxItem
+            {
+                Content = label
+            };
+            var model = this.GetOrAddModelToDictionary(lbi, name);
+            Binding binding = new Binding("Name")
+            {
+                Source = model
+            };
+            label.SetBinding(ContentControl.ContentProperty, binding);
+            _mainWindow.LearningListBox.Items.Add(lbi);
+            return lbi;
         }
 
-        private Model GetOrAddModelToDictionary(string name)
+        public void RemoveModel(ListBoxItem lbi)
         {
-            Model model;
-            if (this._learningModels.TryGetValue(name, out model))
+            this._learningModels.Remove(lbi);
+        }
+
+        private Model GetOrAddModelToDictionary(ListBoxItem lbi, string name = null)
+        {
+            if (this._learningModels.TryGetValue(lbi, out Model model))
             {
                 return model;
             }
 
-            model = new Model(name);
-            this._learningModels[name] = model;
+            model = new Model(name ?? "Модель");
+            this._learningModels[lbi] = model;
             return model;
         }
 
         public void ChangeRectangleColor(int position)
         {
+            if (this.CurrentModel == null)
+            {
+                return;
+            }
             var color = this.CurrentModel.Colors[position];
             if (color.Equals(Brushes.Black))
             {
@@ -91,7 +120,7 @@ namespace NeuralNetworkLab1WPF
         {
             if (PropertyChanged != null)
             {
-                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+                this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
             }
         }
     }
@@ -119,23 +148,47 @@ namespace NeuralNetworkLab1WPF
                 return;
             }
             var selectedItem = e.AddedItems[0] as ListBoxItem;
-            var selectedItemLabel = selectedItem.Content as Label;
-            string newModel = selectedItemLabel.Content.ToString();
-            this.LearnPanel.ChangeModel(newModel);
+            this.LearnPanel.ChangeModel(e.AddedItems[0] as ListBoxItem);
         }
 
         private void LearnTextBoxKeyDown(object sender, KeyEventArgs e)
         {
+            if (this.LearnPanel.CurrentModel == null)
+            {
+                return;
+            }
             if (e.Key == Key.Enter)
             {
                 Keyboard.ClearFocus();
-                string oldName = this.LearnPanel.CurrentModel.Name;
-                string newName = this.LearnPanel.CurrentModelName;
-                if (oldName != newName && !this.LearnPanel.ContainsModel(newName))
-                {
-                    this.LearnPanel.CurrentModel.Name = this.LearnPanel.CurrentModelName;
-                }
+                this.LearnPanel.CurrentModel.Name = this.LearnPanel.CurrentModelName;
             }
+        }
+
+        private void AddLearningModelButtonClick(object sender, RoutedEventArgs e)
+        {
+            ListBoxItem lbi = this.LearnPanel.AddModel("Новая модель");
+            this.LearningListBox.SelectedItem = lbi;
+        }
+
+        private void RemoveLearningModelButtonClick(object sender, RoutedEventArgs e)
+        {
+            ListBoxItem lbi = this.LearningListBox.SelectedItem as ListBoxItem;
+            if (lbi == null)
+            {
+                return;
+            }
+
+            this.LearningListBox.Items.Remove(lbi);
+            if (this.LearningListBox.Items.Count > 0)
+            {
+                this.LearningListBox.SelectedIndex = 0;
+            }
+            else
+            {
+                this.LearnPanel.CurrentModel = null;
+                this.LearnPanel.CurrentModelName = null;
+            }
+            this.LearnPanel.RemoveModel(lbi);
         }
     }
 }
