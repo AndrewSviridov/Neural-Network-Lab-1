@@ -5,21 +5,17 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:NeuralNetworkLab1WPF"
         mc:Ignorable="d"
-        Title="Персептрон" Height="525" Width="525">
+        Title="Персептрон" Height="525" Width="375">
     <Grid>
         <TabControl x:Name="MainTabcontrol">
-            <TabItem Header="Обучение">
+            <TabItem Header="Обучение" DataContext="{StaticResource LearningPanel}">
                 <Grid Background="#FFE5E5E5">
-                    <ListBox x:Name="LearningListBox" HorizontalAlignment="Left" Height="315" Margin="10,10,0,0" VerticalAlignment="Top" Width="100" SelectionChanged="LearnListBoxSelectionChanged">
-                        <ListBoxItem>
-                            <Label Content="Модель 1" Width="80"/>
-                        </ListBoxItem>
-                        <ListBoxItem>
-                            <Label Content="Модель 2" Width="80"/>
-                        </ListBoxItem>
-                        <ListBoxItem>
-                            <Label Content="Модель 3" Width="80"/>
-                        </ListBoxItem>
+                    <ListBox x:Name="LearningListBox" HorizontalAlignment="Left" Height="315" Margin="10,10,0,0" VerticalAlignment="Top" Width="115" SelectedItem="{Binding CurrentModel}" ItemsSource="{Binding Models}" SelectionChanged="LearningListBoxSelectionChanged">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <Label Content="{Binding Name}" Width="100"/>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
                     </ListBox>
                     <Grid Margin="160,60,0,0" ShowGridLines="False" HorizontalAlignment="Left" Width="190" Height="315" VerticalAlignment="Top">
                         <Grid.RowDefinitions>
@@ -37,31 +33,42 @@
                         <Grid.Resources>
                             <Style TargetType="Rectangle">
                                 <Setter Property="Margin" Value="5"/>
+                                <Setter Property="HorizontalAlignment" Value="Center"/>
+                                <Setter Property="VerticalAlignment" Value="Center"/>
+                                <Setter Property="Stroke" Value="Black"/>
+                                <Setter Property="Width" Value="50"/>
+                                <Setter Property="Height" Value="50"/>
+                                <EventSetter Event="MouseLeftButtonDown" Handler="RectangleMouseClick"/>
                             </Style>
                         </Grid.Resources>
-                        <Rectangle Fill="{Binding LearnPanel.CurrentModel.Colors[0]}" HorizontalAlignment="Center" Stroke="Black" VerticalAlignment="Center" Grid.Row="0" Grid.Column="0" Width="50" Height="50" MouseLeftButtonDown="LearnRectangleMouseClick" Tag="0"/>
-                        <Rectangle Fill="{Binding LearnPanel.CurrentModel.Colors[1]}" HorizontalAlignment="Center" Stroke="Black" VerticalAlignment="Center" Grid.Row="0" Grid.Column="1" Width="50" Height="50" MouseLeftButtonDown="LearnRectangleMouseClick" Tag="1"/>
-                        <Rectangle Fill="{Binding LearnPanel.CurrentModel.Colors[2]}" HorizontalAlignment="Center" Stroke="Black" VerticalAlignment="Center" Grid.Row="0" Grid.Column="2" Width="50" Height="50" MouseLeftButtonDown="LearnRectangleMouseClick" Tag="2"/>
-                        <Rectangle Fill="{Binding LearnPanel.CurrentModel.Colors[3]}" HorizontalAlignment="Center" Stroke="Black" VerticalAlignment="Center" Grid.Row="1" Grid.Column="0" Width="50" Height="50" MouseLeftButtonDown="LearnRectangleMouseClick" Tag="3"/>
-                        <Rectangle Fill="{Binding LearnPanel.CurrentModel.Colors[4]}" HorizontalAlignment="Center" Stroke="Black" VerticalAlignment="Center" Grid.Row="1" Grid.Column="1" Width="50" Height="50" MouseLeftButtonDown="LearnRectangleMouseClick" Tag="4"/>
-                        <Rectangle Fill="{Binding LearnPanel.CurrentModel.Colors[5]}" HorizontalAlignment="Center" Stroke="Black" VerticalAlignment="Center" Grid.Row="1" Grid.Column="2" Width="50" Height="50" MouseLeftButtonDown="LearnRectangleMouseClick" Tag="5"/>
-                        <Rectangle Fill="{Binding LearnPanel.CurrentModel.Colors[6]}" HorizontalAlignment="Center" Stroke="Black" VerticalAlignment="Center" Grid.Row="2" Grid.Column="0" Width="50" Height="50" MouseLeftButtonDown="LearnRectangleMouseClick" Tag="6"/>
-                        <Rectangle Fill="{Binding LearnPanel.CurrentModel.Colors[7]}" HorizontalAlignment="Center" Stroke="Black" VerticalAlignment="Center" Grid.Row="2" Grid.Column="1" Width="50" Height="50" MouseLeftButtonDown="LearnRectangleMouseClick" Tag="7"/>
-                        <Rectangle Fill="{Binding LearnPanel.CurrentModel.Colors[8]}" HorizontalAlignment="Center" Stroke="Black" VerticalAlignment="Center" Grid.Row="2" Grid.Column="2" Width="50" Height="50" MouseLeftButtonDown="LearnRectangleMouseClick" Tag="8"/>
-                        <Rectangle Fill="{Binding LearnPanel.CurrentModel.Colors[9]}" HorizontalAlignment="Center" Stroke="Black" VerticalAlignment="Center" Grid.Row="3" Grid.Column="0" Width="50" Height="50" MouseLeftButtonDown="LearnRectangleMouseClick" Tag="9"/>
-                        <Rectangle Fill="{Binding LearnPanel.CurrentModel.Colors[10]}" HorizontalAlignment="Center" Stroke="Black" VerticalAlignment="Center" Grid.Row="3" Grid.Column="1" Width="50" Height="50" MouseLeftButtonDown="LearnRectangleMouseClick" Tag="10"/>
-                        <Rectangle Fill="{Binding LearnPanel.CurrentModel.Colors[11]}" HorizontalAlignment="Center" Stroke="Black" VerticalAlignment="Center" Grid.Row="3" Grid.Column="2" Width="50" Height="50" MouseLeftButtonDown="LearnRectangleMouseClick" Tag="11"/>
-                        <Rectangle Fill="{Binding LearnPanel.CurrentModel.Colors[12]}" HorizontalAlignment="Center" Stroke="Black" VerticalAlignment="Center" Grid.Row="4" Grid.Column="0" Width="50" Height="50" MouseLeftButtonDown="LearnRectangleMouseClick" Tag="12"/>
-                        <Rectangle Fill="{Binding LearnPanel.CurrentModel.Colors[13]}" HorizontalAlignment="Center" Stroke="Black" VerticalAlignment="Center" Grid.Row="4" Grid.Column="1" Width="50" Height="50" MouseLeftButtonDown="LearnRectangleMouseClick" Tag="13"/>
-                        <Rectangle Fill="{Binding LearnPanel.CurrentModel.Colors[14]}" HorizontalAlignment="Center" Stroke="Black" VerticalAlignment="Center" Grid.Row="4" Grid.Column="2" Width="50" Height="50" MouseLeftButtonDown="LearnRectangleMouseClick" Tag="14"/>
+                        <Rectangle Fill="{Binding CurrentModel.Colors[0].Value, Mode=TwoWay}" Grid.Row="0" Grid.Column="0"/>
+                        <Rectangle Fill="{Binding CurrentModel.Colors[1].Value, Mode=TwoWay}" Grid.Row="0" Grid.Column="1"/>
+                        <Rectangle Fill="{Binding CurrentModel.Colors[2].Value, Mode=TwoWay}" Grid.Row="0" Grid.Column="2"/>
+                        <Rectangle Fill="{Binding CurrentModel.Colors[3].Value, Mode=TwoWay}" Grid.Row="1" Grid.Column="0"/>
+                        <Rectangle Fill="{Binding CurrentModel.Colors[4].Value, Mode=TwoWay}" Grid.Row="1" Grid.Column="1"/>
+                        <Rectangle Fill="{Binding CurrentModel.Colors[5].Value, Mode=TwoWay}" Grid.Row="1" Grid.Column="2"/>
+                        <Rectangle Fill="{Binding CurrentModel.Colors[6].Value, Mode=TwoWay}" Grid.Row="2" Grid.Column="0"/>
+                        <Rectangle Fill="{Binding CurrentModel.Colors[7].Value, Mode=TwoWay}" Grid.Row="2" Grid.Column="1"/>
+                        <Rectangle Fill="{Binding CurrentModel.Colors[8].Value, Mode=TwoWay}" Grid.Row="2" Grid.Column="2"/>
+                        <Rectangle Fill="{Binding CurrentModel.Colors[9].Value, Mode=TwoWay}" Grid.Row="3" Grid.Column="0"/>
+                        <Rectangle Fill="{Binding CurrentModel.Colors[10].Value, Mode=TwoWay}" Grid.Row="3" Grid.Column="1"/>
+                        <Rectangle Fill="{Binding CurrentModel.Colors[11].Value, Mode=TwoWay}" Grid.Row="3" Grid.Column="2"/>
+                        <Rectangle Fill="{Binding CurrentModel.Colors[12].Value, Mode=TwoWay}" Grid.Row="4" Grid.Column="0"/>
+                        <Rectangle Fill="{Binding CurrentModel.Colors[13].Value, Mode=TwoWay}" Grid.Row="4" Grid.Column="1"/>
+                        <Rectangle Fill="{Binding CurrentModel.Colors[14].Value, Mode=TwoWay}" Grid.Row="4" Grid.Column="2"/>
                     </Grid>
-                    <Button Content="Добавить" HorizontalAlignment="Left" Margin="10,330,0,0" VerticalAlignment="Top" Width="100" Height="20" Click="AddLearningModelButtonClick"/>
-                    <Button Content="Удалить" HorizontalAlignment="Left" Margin="10,355,0,0" VerticalAlignment="Top" Width="100" Height="20" Click="RemoveLearningModelButtonClick"/>
-                    <TextBox HorizontalAlignment="Left" Height="23" Margin="160,32,0,0" TextWrapping="Wrap" Text="{Binding LearnPanel.CurrentModelName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Width="190" KeyDown="LearnTextBoxKeyDown"/>
+                    <Button Content="Добавить" HorizontalAlignment="Left" Margin="10,330,0,0" VerticalAlignment="Top" Width="115" Height="20" Click="AddLearningModelButtonClick"/>
+                    <Button Content="Удалить" HorizontalAlignment="Left" Margin="10,355,0,0" VerticalAlignment="Top" Width="115" Height="20" Click="RemoveLearningModelButtonClick"/>
+                    <TextBox HorizontalAlignment="Left" Height="23" Margin="160,32,0,0" TextWrapping="Wrap" Text="{Binding CurrentModelName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Width="190" KeyDown="LearnTextBoxKeyDown"/>
+                    <CheckBox Content="Верная модель" HorizontalAlignment="Left" Margin="160,375,0,0" VerticalAlignment="Top" Width="175" IsChecked="{Binding CurrentModel.Result}"/>
                 </Grid>
             </TabItem>
             <TabItem Header="Тестирование">
-                <Grid Background="#FFE5E5E5"/>
+                <Grid Background="#FFE5E5E5">
+                    <GroupBox Header="Модель" HorizontalAlignment="Left" Height="345" Margin="70,10,0,0" VerticalAlignment="Top" Width="220">
+                    </GroupBox>
+                    <Button Content="Проверка" HorizontalAlignment="Left" Margin="125,360,0,0" VerticalAlignment="Top" Width="100" Click="TestModelButtonClick"/>
+                </Grid>
             </TabItem>
         </TabControl>
     </Grid>

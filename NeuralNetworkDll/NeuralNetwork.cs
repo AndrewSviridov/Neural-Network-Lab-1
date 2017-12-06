@@ -5,7 +5,12 @@ namespace NeuralNetworkDll
 {
     public class NeuralNetwork
     {
+        // Персептрон
         private readonly Perceptron _perceptron;
+
+        // Обучена ли наша модель
+        private bool _trained;
+        public bool Trained => _trained;
 
         /// <param name="weights">Первоначальные веса</param>
         /// <param name="threshold">Пороговое значение</param>
@@ -24,6 +29,8 @@ namespace NeuralNetworkDll
         /// <param name="token">Токен на отмену</param>
         public void Train(int[][] values, bool[] expected, bool breakCycle = true, CancellationToken token = default(CancellationToken))
         {
+            // Обнуляем обучение
+            this._trained = false;
             // Предыдущая дельта
             double prevDelta = 0;
             // Вечный цикл
@@ -71,6 +78,9 @@ namespace NeuralNetworkDll
                     prevDelta = delta;
                 }
             }
+
+            // Наша модель обучена
+            this._trained = true;
         }
 
         /// <summary>

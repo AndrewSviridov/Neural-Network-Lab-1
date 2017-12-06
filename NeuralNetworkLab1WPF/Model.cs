@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.ObjectModel;
+﻿using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Windows.Media;
@@ -8,7 +7,7 @@ namespace NeuralNetworkLab1WPF
 {
     public sealed class Model : INotifyPropertyChanged
     {
-        public ObservableCollection<SolidColorBrush> Colors { get; }
+        public List<ObservableItem<Brush>> Colors { get; }
 
         private string _name;
         public string Name
@@ -21,10 +20,38 @@ namespace NeuralNetworkLab1WPF
             }
         }
 
+        private bool _result;
+        public bool Result
+        {
+            get { return this._result; }
+            set
+            {
+                this._result = value;
+                this.RaisePropertyChanged("Result");
+            }
+        }
+
+        public void Clear()
+        {
+            for (int i = 0; i < this.Colors.Count; i++)
+            {
+               this.Colors[i].Value = Brushes.White;
+            }
+        }
+
+        public static implicit operator int[](Model model)
+        {
+            return model.Colors.Select(x => x.Value.Equals(Brushes.Black) ? 1 : 0).ToArray();
+        }
+
         public Model(string name)
         {
             this.Name = name;
-            Colors = new ObservableCollection<SolidColorBrush>(Enumerable.Repeat(Brushes.White, 15));
+            this.Colors = new List<ObservableItem<Brush>>();
+            for (int i = 0; i < 15; i++)
+            {
+                this.Colors.Add(new ObservableItem<Brush>(Brushes.White));
+            }
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
