@@ -9,14 +9,19 @@ namespace NeuralNetworkLab1WPF
 {
     public sealed class NeuralNetworkViewModel
     {
-        private readonly double[] Weights = Enumerable.Repeat(0.5, 15).ToArray();
         private const double Threshold = 0.7;
 
         public NeuralNetwork NeuralNetwork { get; }
 
         public NeuralNetworkViewModel()
         {
-            this.NeuralNetwork = new NeuralNetwork(this.Weights, Threshold);
+            var weights = new List<double>();
+            var random = new Random();
+            for (int i = 0; i < 15; i++)
+            {
+                weights.Add(random.NextDouble() * 2 - 1);
+            }
+            this.NeuralNetwork = new NeuralNetwork(weights.ToArray(), Threshold, 0.1);
         }
     }
 }

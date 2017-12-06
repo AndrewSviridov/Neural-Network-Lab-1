@@ -6,7 +6,7 @@ namespace NeuralNetworkDll
     {
         private readonly double _threshold;
         private readonly double _learningSpeed;
-        private readonly double[] _weights;
+        private double[] _weights;
         private double _delta;
 
         /// <param name="weights">Первоначальные весы</param>
@@ -14,7 +14,7 @@ namespace NeuralNetworkDll
         /// <param name="learningSpeed">Скорость обучения</param>
         public Perceptron(double[] weights, double threshold, double learningSpeed)
         {
-            this._weights = weights;
+            this.ResetWeights(weights);
             this._threshold = threshold;
             this._learningSpeed = learningSpeed;
         }
@@ -67,5 +67,11 @@ namespace NeuralNetworkDll
         /// </summary>
         /// <returns>Дельта</returns>
         public double GetDelta() => this._delta;
+
+        public void ResetWeights(double[] weights)
+        {
+            this._weights = new double[weights.Length];
+            weights.CopyTo(this._weights, 0);
+        }
     }
 }

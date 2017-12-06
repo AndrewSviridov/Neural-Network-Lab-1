@@ -12,11 +12,14 @@ namespace NeuralNetworkDll
         private bool _trained;
         public bool Trained => _trained;
 
+        private double[] _weights;
+
         /// <param name="weights">Первоначальные веса</param>
         /// <param name="threshold">Пороговое значение</param>
         /// <param name="learningSpeed">Скорость обучения</param>
         public NeuralNetwork(double[] weights, double threshold, double learningSpeed = 1)
         {
+            this._weights = weights;
             this._perceptron = new Perceptron(weights, threshold, learningSpeed);
         }
 
@@ -29,6 +32,7 @@ namespace NeuralNetworkDll
         /// <param name="token">Токен на отмену</param>
         public void Train(int[][] values, bool[] expected, bool breakCycle = true, CancellationToken token = default(CancellationToken))
         {
+            this._perceptron.ResetWeights(this._weights);
             // Обнуляем обучение
             this._trained = false;
             // Предыдущая дельта
