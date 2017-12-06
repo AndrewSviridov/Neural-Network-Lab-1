@@ -10,7 +10,7 @@
         <TabControl x:Name="MainTabcontrol">
             <TabItem Header="Обучение" DataContext="{StaticResource LearningPanel}">
                 <Grid Background="#FFE5E5E5">
-                    <ListBox x:Name="LearningListBox" HorizontalAlignment="Left" Height="315" Margin="10,10,0,0" VerticalAlignment="Top" Width="115" SelectedItem="{Binding CurrentModel}" ItemsSource="{Binding Models}" SelectionChanged="LearningListBoxSelectionChanged">
+                    <ListBox x:Name="LearningListBox" HorizontalAlignment="Left" Height="315" Margin="10,10,0,0" VerticalAlignment="Top" Width="115" SelectedItem="{Binding CurrentModel}" ItemsSource="{Binding Models}" >
                         <ListBox.ItemTemplate>
                             <DataTemplate>
                                 <Label Content="{Binding Name}" Width="100"/>
@@ -59,7 +59,7 @@
                     </Grid>
                     <Button Content="Добавить" HorizontalAlignment="Left" Margin="10,330,0,0" VerticalAlignment="Top" Width="115" Height="20" Click="AddLearningModelButtonClick"/>
                     <Button Content="Удалить" HorizontalAlignment="Left" Margin="10,355,0,0" VerticalAlignment="Top" Width="115" Height="20" Click="RemoveLearningModelButtonClick"/>
-                    <TextBox HorizontalAlignment="Left" Height="23" Margin="160,32,0,0" TextWrapping="Wrap" Text="{Binding CurrentModelName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Width="190" KeyDown="LearnTextBoxKeyDown"/>
+                    <TextBox HorizontalAlignment="Left" Height="23" Margin="160,32,0,0" TextWrapping="Wrap" Text="{Binding CurrentModel.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Width="190"/>
                     <CheckBox Content="Верная модель" HorizontalAlignment="Left" Margin="160,375,0,0" VerticalAlignment="Top" Width="175" IsChecked="{Binding CurrentModel.Result}"/>
                     <Button Content="Обучить" HorizontalAlignment="Left" Margin="10,381,0,0" VerticalAlignment="Top" Width="115" Click="TeachButtonClick"/>
                 </Grid>

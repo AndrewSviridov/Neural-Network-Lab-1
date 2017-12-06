@@ -23,31 +23,18 @@ namespace NeuralNetworkLab1WPF
             }
         }
 
-        private string _currentModelName;
-        public string CurrentModelName
-        {
-            get { return _currentModelName; }
-            set
-            {
-                _currentModelName = value;
-                this.RaisePropertyChanged("CurrentModelName");
-            }
-        }
-
         public ObservableCollection<Model> Models { get; set; }
 
         public void AddModel(Model model)
         {
             this.Models.Add(model);
             this.CurrentModel = model;
-            this.CurrentModelName = model.Name;
         }
 
         public void RemoveCurrentModel()
         {
             this.Models.Remove(this.CurrentModel);
             this.CurrentModel = null;
-            this.CurrentModelName = null;
         }
 
         /// <summary>
@@ -70,19 +57,6 @@ namespace NeuralNetworkLab1WPF
 
     public partial class MainWindow
     {
-        private void LearnTextBoxKeyDown(object sender, KeyEventArgs e)
-        {
-            if (ResourcesHelper.LearningPanel.CurrentModel == null)
-            {
-                return;
-            }
-            if (e.Key == Key.Enter)
-            {
-                Keyboard.ClearFocus();
-                ResourcesHelper.LearningPanel.CurrentModel.Name = ResourcesHelper.LearningPanel.CurrentModelName;
-            }
-        }
-
         private void AddLearningModelButtonClick(object sender, RoutedEventArgs e)
         {
             ResourcesHelper.LearningPanel.AddModel(new Model("Новая модель"));
@@ -91,11 +65,6 @@ namespace NeuralNetworkLab1WPF
         private void RemoveLearningModelButtonClick(object sender, RoutedEventArgs e)
         {
             ResourcesHelper.LearningPanel.RemoveCurrentModel();
-        }
-
-        private void LearningListBoxSelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            ResourcesHelper.LearningPanel.CurrentModelName = ResourcesHelper.LearningPanel.CurrentModel.Name;
         }
 
         private void TeachButtonClick(object sender, RoutedEventArgs e)
