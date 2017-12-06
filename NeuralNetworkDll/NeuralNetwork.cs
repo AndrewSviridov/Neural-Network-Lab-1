@@ -70,7 +70,7 @@ namespace NeuralNetworkDll
                     // Находим среднюю дельту
                     delta /= values.Length;
                     // Если изменение дельты меньше порога
-                    if (Math.Abs(delta - prevDelta) <= 0.001)
+                    if (Math.Abs(delta - prevDelta) <= 0.001 || double.IsNaN(delta))
                     {
                         // Выходим из цикла
                         break;

@@ -24,17 +24,15 @@ namespace NeuralNetworkLab1WPF
 
         public void TestModel()
         {
-            /*
-            if (!this._neuralNetwork.Trained)
+            if (!ResourcesHelper.NeuralNetwork.Trained)
             {
                 MessageBox.Show("Модель не обучена!", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
 
-            bool result = this._neuralNetwork.Test(this.TestingModel);
+            bool result = ResourcesHelper.NeuralNetwork.Test(this.TestingModel);
             MessageBox.Show(result ? "Да" : "Нет", "Результат");
             this.TestingModel.Clear();
-            */
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -51,7 +49,7 @@ namespace NeuralNetworkLab1WPF
     {
         private void TestModelButtonClick(object sender, RoutedEventArgs e)
         {
-            //this.TestPanel.TestModel();
+            ResourcesHelper.TestingPanel.TestModel();
         }
     }
 }

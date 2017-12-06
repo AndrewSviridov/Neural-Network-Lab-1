@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:NeuralNetworkLab1WPF"
         mc:Ignorable="d"
-        Title="Персептрон" Height="525" Width="375">
+        Title="Персептрон" Height="470" Width="375">
     <Grid>
         <TabControl x:Name="MainTabcontrol">
             <TabItem Header="Обучение" DataContext="{StaticResource LearningPanel}">
@@ -61,13 +61,54 @@
                     <Button Content="Удалить" HorizontalAlignment="Left" Margin="10,355,0,0" VerticalAlignment="Top" Width="115" Height="20" Click="RemoveLearningModelButtonClick"/>
                     <TextBox HorizontalAlignment="Left" Height="23" Margin="160,32,0,0" TextWrapping="Wrap" Text="{Binding CurrentModelName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Width="190" KeyDown="LearnTextBoxKeyDown"/>
                     <CheckBox Content="Верная модель" HorizontalAlignment="Left" Margin="160,375,0,0" VerticalAlignment="Top" Width="175" IsChecked="{Binding CurrentModel.Result}"/>
+                    <Button Content="Обучить" HorizontalAlignment="Left" Margin="10,381,0,0" VerticalAlignment="Top" Width="115" Click="TeachButtonClick"/>
                 </Grid>
             </TabItem>
-            <TabItem Header="Тестирование">
+            <TabItem Header="Тестирование" DataContext="{StaticResource TestingPanel}">
                 <Grid Background="#FFE5E5E5">
-                    <GroupBox Header="Модель" HorizontalAlignment="Left" Height="345" Margin="70,10,0,0" VerticalAlignment="Top" Width="220">
+                    <GroupBox Header="Модель" HorizontalAlignment="Left" Height="325" Margin="70,10,0,0" VerticalAlignment="Top" Width="200">
+                        <Grid Margin="0,0,0,0" ShowGridLines="False" HorizontalAlignment="Left" Width="190" Height="315" VerticalAlignment="Top">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Grid.Resources>
+                                <Style TargetType="Rectangle">
+                                    <Setter Property="Margin" Value="5"/>
+                                    <Setter Property="HorizontalAlignment" Value="Center"/>
+                                    <Setter Property="VerticalAlignment" Value="Center"/>
+                                    <Setter Property="Stroke" Value="Black"/>
+                                    <Setter Property="Width" Value="50"/>
+                                    <Setter Property="Height" Value="50"/>
+                                    <EventSetter Event="MouseLeftButtonDown" Handler="RectangleMouseClick"/>
+                                </Style>
+                            </Grid.Resources>
+                            <Rectangle Fill="{Binding TestingModel.Colors[0].Value, Mode=TwoWay}" Grid.Row="0" Grid.Column="0"/>
+                            <Rectangle Fill="{Binding TestingModel.Colors[1].Value, Mode=TwoWay}" Grid.Row="0" Grid.Column="1"/>
+                            <Rectangle Fill="{Binding TestingModel.Colors[2].Value, Mode=TwoWay}" Grid.Row="0" Grid.Column="2"/>
+                            <Rectangle Fill="{Binding TestingModel.Colors[3].Value, Mode=TwoWay}" Grid.Row="1" Grid.Column="0"/>
+                            <Rectangle Fill="{Binding TestingModel.Colors[4].Value, Mode=TwoWay}" Grid.Row="1" Grid.Column="1"/>
+                            <Rectangle Fill="{Binding TestingModel.Colors[5].Value, Mode=TwoWay}" Grid.Row="1" Grid.Column="2"/>
+                            <Rectangle Fill="{Binding TestingModel.Colors[6].Value, Mode=TwoWay}" Grid.Row="2" Grid.Column="0"/>
+                            <Rectangle Fill="{Binding TestingModel.Colors[7].Value, Mode=TwoWay}" Grid.Row="2" Grid.Column="1"/>
+                            <Rectangle Fill="{Binding TestingModel.Colors[8].Value, Mode=TwoWay}" Grid.Row="2" Grid.Column="2"/>
+                            <Rectangle Fill="{Binding TestingModel.Colors[9].Value, Mode=TwoWay}" Grid.Row="3" Grid.Column="0"/>
+                            <Rectangle Fill="{Binding TestingModel.Colors[10].Value, Mode=TwoWay}" Grid.Row="3" Grid.Column="1"/>
+                            <Rectangle Fill="{Binding TestingModel.Colors[11].Value, Mode=TwoWay}" Grid.Row="3" Grid.Column="2"/>
+                            <Rectangle Fill="{Binding TestingModel.Colors[12].Value, Mode=TwoWay}" Grid.Row="4" Grid.Column="0"/>
+                            <Rectangle Fill="{Binding TestingModel.Colors[13].Value, Mode=TwoWay}" Grid.Row="4" Grid.Column="1"/>
+                            <Rectangle Fill="{Binding TestingModel.Colors[14].Value, Mode=TwoWay}" Grid.Row="4" Grid.Column="2"/>
+                        </Grid>
                     </GroupBox>
-                    <Button Content="Проверка" HorizontalAlignment="Left" Margin="125,360,0,0" VerticalAlignment="Top" Width="100" Click="TestModelButtonClick"/>
+                    <Button Content="Проверка" HorizontalAlignment="Left" Margin="115,340,0,0" VerticalAlignment="Top" Width="100" Click="TestModelButtonClick"/>
                 </Grid>
             </TabItem>
         </TabControl>

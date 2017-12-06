@@ -5,6 +5,7 @@
              StartupUri="MainWindow.xaml">
     <Application.Resources>
         <local:LearningPanel x:Key="LearningPanel"/>
+        <local:TestingPanel x:Key="TestingPanel"/>
         <local:NeuralNetworkViewModel x:Key="NeuralNetwork"/>
     </Application.Resources>
 </Application>

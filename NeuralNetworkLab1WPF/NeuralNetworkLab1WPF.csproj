@@ -58,7 +58,7 @@
     <Compile Include="NeuralNetworkViewModel.cs" />
     <Compile Include="ObservableItem.cs" />
     <Compile Include="ResourcesHelper.cs" />
-    <Compile Include="TestingPanelData.cs" />
+    <Compile Include="TestingPanel.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

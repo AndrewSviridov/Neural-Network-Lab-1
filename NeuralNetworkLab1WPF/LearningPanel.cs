@@ -1,8 +1,12 @@
-﻿using System.Collections.ObjectModel;
+﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Linq;
+using System.Threading.Tasks;
+using System.Threading;
 
 namespace NeuralNetworkLab1WPF
 {
@@ -92,6 +96,22 @@ namespace NeuralNetworkLab1WPF
         private void LearningListBoxSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             ResourcesHelper.LearningPanel.CurrentModelName = ResourcesHelper.LearningPanel.CurrentModel.Name;
+        }
+
+        private void TeachButtonClick(object sender, RoutedEventArgs e)
+        {
+            Task.Factory.StartNew(() =>
+            {
+                var values = new List<int[]>();
+                var expected = new List<bool>();
+                foreach (var model in ResourcesHelper.LearningPanel.Models)
+                {
+                    values.Add(model);
+                    expected.Add(model.Result);
+                }
+                ResourcesHelper.NeuralNetwork.Train(values.ToArray(), expected.ToArray());
+                MessageBox.Show("Модель обучена!", "Обучение", MessageBoxButton.OK);
+            });
         }
     }
 }
