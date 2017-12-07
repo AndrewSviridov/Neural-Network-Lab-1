@@ -10,7 +10,7 @@ using System.Threading;
 
 namespace NeuralNetworkLab1WPF
 {
-    public sealed class LearningPanel : INotifyPropertyChanged
+    public sealed class ModelPanel : INotifyPropertyChanged
     {
         private Model _currentModel;
         public Model CurrentModel
@@ -40,7 +40,7 @@ namespace NeuralNetworkLab1WPF
         /// <summary>
         /// Конструктор
         /// </summary>
-        public LearningPanel()
+        public ModelPanel()
         {
             this.Models = new ObservableCollection<Model>();
         }
@@ -65,22 +65,6 @@ namespace NeuralNetworkLab1WPF
         private void RemoveLearningModelButtonClick(object sender, RoutedEventArgs e)
         {
             ResourcesHelper.LearningPanel.RemoveCurrentModel();
-        }
-
-        private void TeachButtonClick(object sender, RoutedEventArgs e)
-        {
-            Task.Factory.StartNew(() =>
-            {
-                var values = new List<int[]>();
-                var expected = new List<bool>();
-                foreach (var model in ResourcesHelper.LearningPanel.Models)
-                {
-                    values.Add(model);
-                    expected.Add(model.Result);
-                }
-                ResourcesHelper.NeuralNetwork.Train(values.ToArray(), expected.ToArray());
-                MessageBox.Show("Модель обучена!", "Обучение", MessageBoxButton.OK);
-            });
         }
     }
 }

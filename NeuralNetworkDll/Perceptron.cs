@@ -5,7 +5,7 @@ namespace NeuralNetworkDll
     internal class Perceptron
     {
         private readonly double _threshold;
-        private readonly double _learningSpeed;
+        private double _learningSpeed;
         private double[] _weights;
         private double _delta;
 
@@ -72,6 +72,11 @@ namespace NeuralNetworkDll
         {
             this._weights = new double[weights.Length];
             weights.CopyTo(this._weights, 0);
+        }
+
+        public void ResetLearningSpeed(double learningSpeed)
+        {
+            this._learningSpeed = learningSpeed;
         }
     }
 }

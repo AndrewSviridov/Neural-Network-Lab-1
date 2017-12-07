@@ -23,6 +23,14 @@ namespace NeuralNetworkDll
             this._perceptron = new Perceptron(weights, threshold, learningSpeed);
         }
 
+        public void ResetLearningSpeed(double learningSpeed)
+        {
+            if (_perceptron != null)
+            {
+                _perceptron.ResetLearningSpeed(learningSpeed);
+            }
+        }
+
         /// <summary>
         /// Обучаем персептрон
         /// </summary>

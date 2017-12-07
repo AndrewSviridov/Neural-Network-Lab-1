@@ -5,14 +5,14 @@ namespace NeuralNetworkLab1WPF
 {
     public static class ResourcesHelper
     {
-        private static LearningPanel learningPanel;
-        public static LearningPanel LearningPanel
+        private static ModelPanel learningPanel;
+        public static ModelPanel LearningPanel
         {
             get
             {
                 if (learningPanel == null)
                 {
-                    learningPanel = Application.Current.FindResource("LearningPanel") as LearningPanel;
+                    learningPanel = Application.Current.FindResource("LearningPanel") as ModelPanel;
                 }
                 return learningPanel;
             }
@@ -32,7 +32,7 @@ namespace NeuralNetworkLab1WPF
         }
 
         private static NeuralNetworkViewModel neuralNetwork;
-        public static NeuralNetwork NeuralNetwork
+        public static NeuralNetworkViewModel NeuralNetwork
         {
             get
             {
@@ -40,7 +40,7 @@ namespace NeuralNetworkLab1WPF
                 {
                     neuralNetwork = Application.Current.FindResource("NeuralNetwork") as NeuralNetworkViewModel;
                 }
-                return neuralNetwork.NeuralNetwork;
+                return neuralNetwork;
             }
         }
     }

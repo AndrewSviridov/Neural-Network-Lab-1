@@ -4,7 +4,7 @@
              xmlns:local="clr-namespace:NeuralNetworkLab1WPF"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-        <local:LearningPanel x:Key="LearningPanel"/>
+        <local:ModelPanel x:Key="ModelPanel"/>
         <local:TestingPanel x:Key="TestingPanel"/>
         <local:NeuralNetworkViewModel x:Key="NeuralNetwork"/>
     </Application.Resources>

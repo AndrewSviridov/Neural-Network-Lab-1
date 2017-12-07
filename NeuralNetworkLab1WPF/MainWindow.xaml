@@ -8,7 +8,7 @@
         Title="Персептрон" Height="470" Width="375">
     <Grid>
         <TabControl x:Name="MainTabcontrol">
-            <TabItem Header="Обучение" DataContext="{StaticResource LearningPanel}">
+            <TabItem Header="Модели" DataContext="{StaticResource ModelPanel}">
                 <Grid Background="#FFE5E5E5">
                     <ListBox x:Name="LearningListBox" HorizontalAlignment="Left" Height="315" Margin="10,10,0,0" VerticalAlignment="Top" Width="115" SelectedItem="{Binding CurrentModel}" ItemsSource="{Binding Models}" >
                         <ListBox.ItemTemplate>
@@ -61,7 +61,13 @@
                     <Button Content="Удалить" HorizontalAlignment="Left" Margin="10,355,0,0" VerticalAlignment="Top" Width="115" Height="20" Click="RemoveLearningModelButtonClick"/>
                     <TextBox HorizontalAlignment="Left" Height="23" Margin="160,32,0,0" TextWrapping="Wrap" Text="{Binding CurrentModel.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Width="190"/>
                     <CheckBox Content="Верная модель" HorizontalAlignment="Left" Margin="160,375,0,0" VerticalAlignment="Top" Width="175" IsChecked="{Binding CurrentModel.Result}"/>
-                    <Button Content="Обучить" HorizontalAlignment="Left" Margin="10,381,0,0" VerticalAlignment="Top" Width="115" Click="TeachButtonClick"/>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Обучение" DataContext="{StaticResource NeuralNetwork}">
+                <Grid Background="#FFE5E5E5">
+                    <Label Content="Скорость обучения" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,10,0,0" Width="120"/>
+                    <TextBox HorizontalAlignment="Left" Height="23" Margin="135,13,0,0" TextWrapping="Wrap" Text="{Binding LearningSpeed, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Width="120"/>
+                    <Button Content="Обучить" HorizontalAlignment="Left" Margin="15,41,0,0" VerticalAlignment="Top" Width="115" Click="TeachButtonClick"/>
                 </Grid>
             </TabItem>
             <TabItem Header="Тестирование" DataContext="{StaticResource TestingPanel}">
