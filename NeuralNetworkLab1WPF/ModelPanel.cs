@@ -1,12 +1,15 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Threading;
+using Newtonsoft.Json;
+using Microsoft.Win32;
 
 namespace NeuralNetworkLab1WPF
 {
@@ -37,6 +40,21 @@ namespace NeuralNetworkLab1WPF
             this.CurrentModel = null;
         }
 
+        public string ExportModels()
+        {
+            return JsonConvert.SerializeObject(Models.ToArray());
+        }
+
+        public void ImportModels(string text)
+        {
+            Model[] models = JsonConvert.DeserializeObject<Model[]>(text);
+            this.Models.Clear();
+            foreach (var model in models)
+            {
+                this.Models.Add(model);
+            }   
+        }
+
         /// <summary>
         /// Конструктор
         /// </summary>
@@ -59,12 +77,12 @@ namespace NeuralNetworkLab1WPF
     {
         private void AddLearningModelButtonClick(object sender, RoutedEventArgs e)
         {
-            ResourcesHelper.LearningPanel.AddModel(new Model("Новая модель"));
+            ResourcesHelper.ModelPanel.AddModel(new Model("Новая модель"));
         }
 
         private void RemoveLearningModelButtonClick(object sender, RoutedEventArgs e)
         {
-            ResourcesHelper.LearningPanel.RemoveCurrentModel();
+            ResourcesHelper.ModelPanel.RemoveCurrentModel();
         }
     }
 }

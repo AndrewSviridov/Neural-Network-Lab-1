@@ -74,7 +74,7 @@ namespace NeuralNetworkLab1WPF
             {
                 var values = new List<int[]>();
                 var expected = new List<bool>();
-                foreach (var model in ResourcesHelper.LearningPanel.Models)
+                foreach (var model in ResourcesHelper.ModelPanel.Models)
                 {
                     values.Add(model);
                     expected.Add(model.Result);

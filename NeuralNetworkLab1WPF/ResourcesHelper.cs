@@ -5,16 +5,16 @@ namespace NeuralNetworkLab1WPF
 {
     public static class ResourcesHelper
     {
-        private static ModelPanel learningPanel;
-        public static ModelPanel LearningPanel
+        private static ModelPanel modelPanel;
+        public static ModelPanel ModelPanel
         {
             get
             {
-                if (learningPanel == null)
+                if (modelPanel == null)
                 {
-                    learningPanel = Application.Current.FindResource("LearningPanel") as ModelPanel;
+                    modelPanel = Application.Current.FindResource("ModelPanel") as ModelPanel;
                 }
-                return learningPanel;
+                return modelPanel;
             }
         }
 
