@@ -7,7 +7,13 @@
         mc:Ignorable="d"
         Title="Персептрон" Height="470" Width="375">
     <Grid>
-        <TabControl x:Name="MainTabcontrol">
+        <Menu HorizontalAlignment="Left" Height="25" VerticalAlignment="Top" Width="367">
+            <MenuItem Header="Модели">
+                <MenuItem Header="Импортировать" Click="MenuImportClick"/>
+                <MenuItem Header="Экспортировать" Click="MenuExportClick"/>
+            </MenuItem>
+        </Menu>
+        <TabControl x:Name="MainTabcontrol" Margin="0,25,0,0">
             <TabItem Header="Модели" DataContext="{StaticResource ModelPanel}">
                 <Grid Background="#FFE5E5E5">
                     <ListBox x:Name="LearningListBox" HorizontalAlignment="Left" Height="315" Margin="10,10,0,0" VerticalAlignment="Top" Width="115" SelectedItem="{Binding CurrentModel}" ItemsSource="{Binding Models}" >

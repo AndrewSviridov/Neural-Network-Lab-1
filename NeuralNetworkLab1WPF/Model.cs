@@ -44,14 +44,18 @@ namespace NeuralNetworkLab1WPF
             return model.Colors.Select(x => x.Value.Equals(Brushes.Black) ? 1 : 0).ToArray();
         }
 
-        public Model(string name)
+        public Model(string name, bool instantiateColors)
         {
             this.Name = name;
             this.Colors = new List<ObservableItem<Brush>>();
-            for (int i = 0; i < 15; i++)
+            if (instantiateColors)
             {
-                this.Colors.Add(new ObservableItem<Brush>(Brushes.White));
+                for (int i = 0; i < 15; i++)
+                {
+                    this.Colors.Add(new ObservableItem<Brush>(Brushes.White));
+                }
             }
+            
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

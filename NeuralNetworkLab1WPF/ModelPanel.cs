@@ -77,12 +77,32 @@ namespace NeuralNetworkLab1WPF
     {
         private void AddLearningModelButtonClick(object sender, RoutedEventArgs e)
         {
-            ResourcesHelper.ModelPanel.AddModel(new Model("Новая модель"));
+            ResourcesHelper.ModelPanel.AddModel(new Model("Новая модель", true));
         }
 
         private void RemoveLearningModelButtonClick(object sender, RoutedEventArgs e)
         {
             ResourcesHelper.ModelPanel.RemoveCurrentModel();
+        }
+
+        private void MenuImportClick(object sender, RoutedEventArgs routedEventArgs)
+        {
+            var dialog = new OpenFileDialog();
+            if (dialog.ShowDialog() == true)
+            {
+                string models = File.ReadAllText(dialog.FileName);
+                ResourcesHelper.ModelPanel.ImportModels(models);
+            }
+        }
+
+        private void MenuExportClick(object sender, RoutedEventArgs routedEventArgs)
+        {
+            var dialog = new SaveFileDialog();
+            if (dialog.ShowDialog() == true)
+            {
+                string models = ResourcesHelper.ModelPanel.ExportModels();
+                File.WriteAllText(dialog.FileName, models);
+            }
         }
     }
 }

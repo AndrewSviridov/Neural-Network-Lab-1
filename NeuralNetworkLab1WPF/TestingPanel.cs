@@ -19,7 +19,7 @@ namespace NeuralNetworkLab1WPF
 
         public TestingPanel()
         {
-            this.TestingModel = new Model(null);
+            this.TestingModel = new Model(null, true);
         }
 
         public void TestModel()
