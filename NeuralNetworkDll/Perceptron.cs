@@ -24,7 +24,7 @@ namespace NeuralNetworkDll
         /// </summary>
         /// <param name="values">Данные</param>
         /// <returns>Результат</returns>
-        public bool Activate(int[] values)
+        public bool ActivateBool(int[] values)
         {
             // Проверяем, совпадают ли длинна массива данных и длинна массива весов
             if (values.Length != this._weights.Length)
@@ -42,6 +42,24 @@ namespace NeuralNetworkDll
             this._delta = this._threshold - sum;
 
             return sum >= this._threshold;
+        }
+
+        public double ActivateDouble(int[] values)
+        {
+            // Проверяем, совпадают ли длинна массива данных и длинна массива весов
+            if (values.Length != this._weights.Length)
+            {
+                throw new ArgumentException("Размер данных и размер весов не совпадают!");
+            }
+
+            double sum = 0;
+            // Считаем сумму
+            for (int i = 0; i < values.Length; i++)
+            {
+                sum += values[i] * this._weights[i];
+            }
+
+            return sum;
         }
 
         /// <summary>

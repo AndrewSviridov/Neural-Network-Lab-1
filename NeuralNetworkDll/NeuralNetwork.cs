@@ -3,16 +3,15 @@ using System.Threading;
 
 namespace NeuralNetworkDll
 {
-    public class NeuralNetwork
+    public sealed class NeuralNetwork
     {
         // Персептрон
-        private readonly Perceptron _perceptron;
+        internal Perceptron Perceptron { get; }
 
         // Обучена ли наша модель
-        private bool _trained;
-        public bool Trained => _trained;
+        public bool Trained { get; private set; }
 
-        private double[] _weights;
+        private readonly double[] _weights;
 
         /// <param name="weights">Первоначальные веса</param>
         /// <param name="threshold">Пороговое значение</param>
@@ -20,15 +19,12 @@ namespace NeuralNetworkDll
         public NeuralNetwork(double[] weights, double threshold, double learningSpeed = 1)
         {
             this._weights = weights;
-            this._perceptron = new Perceptron(weights, threshold, learningSpeed);
+            this.Perceptron = new Perceptron(weights, threshold, learningSpeed);
         }
 
         public void ResetLearningSpeed(double learningSpeed)
         {
-            if (_perceptron != null)
-            {
-                _perceptron.ResetLearningSpeed(learningSpeed);
-            }
+            Perceptron?.ResetLearningSpeed(learningSpeed);
         }
 
         /// <summary>
@@ -40,9 +36,9 @@ namespace NeuralNetworkDll
         /// <param name="token">Токен на отмену</param>
         public void Train(int[][] values, bool[] expected, bool breakCycle = true, CancellationToken token = default(CancellationToken))
         {
-            this._perceptron.ResetWeights(this._weights);
+            this.Perceptron.ResetWeights(this._weights);
             // Обнуляем обучение
-            this._trained = false;
+            this.Trained = false;
             // Предыдущая дельта
             double prevDelta = 0;
             // Вечный цикл
@@ -57,15 +53,15 @@ namespace NeuralNetworkDll
                 for (int i = 0; i < values.Length; i++)
                 {
                     // Получаем результат от персептрона
-                    bool result = this._perceptron.Activate(values[i]);
+                    bool result = this.Perceptron.ActivateBool(values[i]);
                     // Если он не совпадает с ожидаемым
                     if (result != expected[i])
                     {
                         // Ошибка!
                         error = true;
                         // Тренируем персептрон
-                        this._perceptron.Train(values[i]);
-                        delta += this._perceptron.GetDelta();
+                        this.Perceptron.Train(values[i]);
+                        delta += this.Perceptron.GetDelta();
                     }
                 }
 
@@ -92,7 +88,7 @@ namespace NeuralNetworkDll
             }
 
             // Наша модель обучена
-            this._trained = true;
+            this.Trained = true;
         }
 
         /// <summary>
@@ -102,7 +98,7 @@ namespace NeuralNetworkDll
         /// <returns>Результат</returns>
         public bool Test(int[] values)
         {
-            return this._perceptron.Activate(values);
+            return this.Perceptron.ActivateBool(values);
         }
     }
 }
