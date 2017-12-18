@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:NeuralNetworkLab1WPF"
         mc:Ignorable="d"
-        Title="Персептрон" Height="470" Width="375">
+        Title="Персептрон" Height="480" Width="375">
     <Grid>
         <Menu HorizontalAlignment="Left" Height="25" VerticalAlignment="Top" Width="367">
             <MenuItem Header="Модели">

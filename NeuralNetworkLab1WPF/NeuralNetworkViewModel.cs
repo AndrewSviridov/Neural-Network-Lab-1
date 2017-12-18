@@ -37,7 +37,7 @@ namespace NeuralNetworkLab1WPF
             {
                 weights.Add(random.NextDouble() * 2 - 1);
             }
-            this.NeuralNetwork = new NeuralNetwork(weights.ToArray(), Threshold, 0.1);
+            this.NeuralNetwork = new NeuralNetwork(weights.ToArray(), Threshold, this.LearningSpeed);
         }
 
         public void Train(int[][] values, bool[] expected, bool breakCycle = true,
@@ -49,6 +49,17 @@ namespace NeuralNetworkLab1WPF
         public void ResetLearningSpeed()
         {
             this.NeuralNetwork.ResetLearningSpeed(this.LearningSpeed);
+        }
+
+        public void ResetWeights()
+        {
+            var weights = new List<double>();
+            var random = new Random();
+            for (int i = 0; i < 15; i++)
+            {
+                weights.Add(random.NextDouble() * 2 - 1);
+            }
+            this.NeuralNetwork.ResetWeights(weights.ToArray());
         }
 
         public bool Trained => this.NeuralNetwork.Trained;
@@ -80,7 +91,11 @@ namespace NeuralNetworkLab1WPF
                     expected.Add(model.Result);
                 }
                 ResourcesHelper.NeuralNetwork.ResetLearningSpeed();
-                ResourcesHelper.NeuralNetwork.Train(values.ToArray(), expected.ToArray());
+                while (!ResourcesHelper.NeuralNetwork.Trained)
+                {
+                    ResourcesHelper.NeuralNetwork.ResetWeights();
+                    ResourcesHelper.NeuralNetwork.Train(values.ToArray(), expected.ToArray());
+                }
                 MessageBox.Show("Модель обучена!", "Обучение", MessageBoxButton.OK);
             });
         }
